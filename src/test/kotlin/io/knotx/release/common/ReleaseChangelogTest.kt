@@ -57,7 +57,7 @@ internal class ReleaseChangelogTest {
     }
 
     private fun assertEqualsIgnoreEndlines(expected: String, actual: String) {
-        assertEquals(expected.replace("/r/n", "/n"), actual.replace("/r/n", "/n"))
+        assertEquals(expected.trimIndent(), actual.trimIndent())
     }
 
     private fun String.asResourceFile() =
