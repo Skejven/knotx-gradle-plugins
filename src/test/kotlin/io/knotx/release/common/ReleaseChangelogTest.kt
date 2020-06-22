@@ -35,7 +35,7 @@ internal class ReleaseChangelogTest {
         // then
         assertTrue(actual.exists())
         val expected = "CHANGELOG-expected.md".fileContentAsString()
-        assertEquals(expected, actual.readText())
+        assertEqualsIgnoreEndlines(expected, actual.readText())
     }
 
     @Test
@@ -54,6 +54,10 @@ internal class ReleaseChangelogTest {
 
         // then
         assertThrows(FileNotFoundException::class.java) { releaseChangelog(changelogFile, "2.0.0") }
+    }
+
+    private fun assertEqualsIgnoreEndlines(expected: String, actual: String) {
+        assertEquals(expected.replace("/r/n", "/n"), actual.replace("/r/n", "/n"))
     }
 
     private fun String.asResourceFile() =
