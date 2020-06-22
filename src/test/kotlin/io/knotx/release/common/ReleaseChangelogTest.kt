@@ -35,7 +35,7 @@ internal class ReleaseChangelogTest {
         // then
         assertTrue(actual.exists())
         val expected = "CHANGELOG-expected.md".fileContentAsString()
-        assertEquals(expected, actual.readText())
+        assertEquals(expected.trimIndent(), actual.readText().trimIndent())
     }
 
     @Test
