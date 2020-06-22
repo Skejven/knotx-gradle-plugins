@@ -42,7 +42,7 @@ internal class KnotxReleaseBasePluginTest {
         assertNotNull(result)
         assertTrue(actual.exists())
         val expected = "$taskToTest/results/CHANGELOG.md".fileContentAsString()
-        assertEquals(expected, actual.readText())
+        assertEquals(expected.trimIndent(), actual.readText().trimIndent())
     }
 
     @Test
