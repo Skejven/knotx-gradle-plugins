@@ -16,13 +16,13 @@
 package io.knotx.release
 
 import org.gradle.testkit.runner.GradleRunner
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import java.io.File
-
 
 internal class KnotxReleaseBasePluginTest {
 
@@ -42,7 +42,7 @@ internal class KnotxReleaseBasePluginTest {
         assertNotNull(result)
         assertTrue(actual.exists())
         val expected = "$taskToTest/results/CHANGELOG.md".fileContentAsString()
-        assertEquals(expected.trimIndent(), actual.readText().trimIndent())
+        assertEqualsTrimIdent(expected, actual.readText())
     }
 
     @Test
@@ -61,7 +61,7 @@ internal class KnotxReleaseBasePluginTest {
         assertNotNull(result)
         assertTrue(actual.exists())
         val expected = "$taskToTest/results/gradle.properties".fileContentAsString()
-        assertEquals(expected, actual.readText())
+        assertEqualsTrimIdent(expected, actual.readText())
     }
 
     @Test
@@ -80,7 +80,7 @@ internal class KnotxReleaseBasePluginTest {
         assertNotNull(result)
         assertTrue(actual.exists())
         val expected = "$taskToTest/results/gradle.properties".fileContentAsString()
-        assertEquals(expected, actual.readText())
+        assertEqualsTrimIdent(expected, actual.readText())
     }
 
     private fun GradleRunner.given(testResourcesRoot: String, task: String, args: List<String> = emptyList()) {
@@ -102,6 +102,10 @@ internal class KnotxReleaseBasePluginTest {
 
     private fun String.fileContentAsString() =
             KnotxReleaseBasePluginTest::javaClass.javaClass.classLoader.getResource(this)!!.readText()
+
+    private fun assertEqualsTrimIdent(expected: String, actual: String) {
+        assertEquals(expected.trimIndent(), actual.trimIndent())
+    }
 
     companion object {
         const val FUNCTIONAL_TESTS_DIR = "build/functionalTests"

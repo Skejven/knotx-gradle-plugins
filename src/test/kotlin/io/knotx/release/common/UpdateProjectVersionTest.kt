@@ -56,7 +56,7 @@ internal class UpdateProjectVersionTest {
         // then
         assertTrue(actual.exists())
         val expected = "gradle-expected.properties".fileContentAsString()
-        assertEquals(expected, actual.readText())
+        assertEqualsTrimIdent(expected, actual.readText())
     }
 
     @Test
@@ -70,7 +70,7 @@ internal class UpdateProjectVersionTest {
         // then
         assertTrue(actual.exists())
         val expected = "gradle.custom-expected.properties".fileContentAsString()
-        assertEquals(expected, actual.readText())
+        assertEqualsTrimIdent(expected, actual.readText())
     }
 
     @Test
@@ -84,7 +84,7 @@ internal class UpdateProjectVersionTest {
         // then
         assertTrue(actual.exists())
         val expected = "gradle.long-expected.properties".fileContentAsString()
-        assertEquals(expected, actual.readText())
+        assertEqualsTrimIdent(expected, actual.readText())
     }
 
     @Test
@@ -110,5 +110,5 @@ internal class UpdateProjectVersionTest {
 
     private fun String.fileContentAsString() =
             UpdateProjectVersionTest::javaClass.javaClass.classLoader.getResource("updateProjectVersion/$this")!!.readText()
-
+    
 }
